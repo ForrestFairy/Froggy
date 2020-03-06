@@ -19,8 +19,8 @@ public class Board {
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                map[i][j] = new Square(2, i, j);
-                
+                map[i][j] = new Square(0, i, j);
+
                 panel.add(map[i][j].getButton());
             }
         }

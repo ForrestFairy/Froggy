@@ -29,6 +29,14 @@ public class Square implements ActionListener {
         return bt;
     }
 
+    public int getX () {
+        return x;
+    }
+
+    public int getY () {
+        return y;
+    }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bt) {
             //green to yellowGreen
