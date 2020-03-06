@@ -2,32 +2,45 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Square /*implements ActionListener*/ {
+public class Square implements ActionListener {
     
     private ImageIcon img;
     private JButton bt;
-
+    private int x;
+    private int y;
 
 //if water 0, if pad,1, if green frog 2, if red frog 3 
-    public Square (int i) {
+    public Square (int i, int j, int k) {
 
-        if (i == 0) img = new ImageIcon("Water.png");
-        if (i == 1) img = new ImageIcon("LilyPad.png");
-        if (i == 2) img = new ImageIcon("GreenFrog.png");
-        if (i == 3) img = new ImageIcon("RedFrog.png");
+        if (i == 0) img = new ImageIcon("Water.png", "0");
+        if (i == 1) img = new ImageIcon("LilyPad.png", "1");
+        if (i == 2) img = new ImageIcon("GreenFrog.png", "2");
+        if (i == 3) img = new ImageIcon("RedFrog.png", "3");
+        
         bt = new JButton(img);
         bt.setIcon(img);
+        bt.addActionListener(this);
 
+        x = j;
+        y = k;
     }
 
     public JButton getButton () {
         return bt;
     }
 
-    public static void main (String[] args) {
-        /*Square test0 = new Square(0);
-        Square test1 = new Square(1);
-        Square test2 = new Square(2);
-        Square test3 = new Square(3);*/
-    } 
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == bt) {
+            //green to yellowGreen
+            if (img.getDescription().equals("2") ) {
+                img = new ImageIcon("GreenFrog2.png", "4");
+                bt.setIcon(img);
+            }
+            //red to yellowRed
+            if (img.getDescription().equals("3") ) {
+                img = new ImageIcon("RedFrog2.png", "5");
+                bt.setIcon(img);
+            }
+        }
+    }
 }

@@ -10,7 +10,7 @@ public class Board {
         //setting frame ready
         frame = new JFrame();
         frame.setTitle("Froggy");
-        frame.setSize(800, 400);
+        frame.setSize(750, 750);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         GridLayout mainLayout = new GridLayout(5, 5);
@@ -19,9 +19,10 @@ public class Board {
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                map[i][j] = new Square(0);
+                map[i][j] = new Square(2, i, j);
+                
                 panel.add(map[i][j].getButton());
-            } 
+            }
         }
         frame.setContentPane(panel);
         frame.setVisible(true);
