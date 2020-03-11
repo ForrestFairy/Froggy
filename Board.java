@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class Board implements ActionListener {
     private JFrame frame;
     Square[][] map = new Square[5][5];
-    //private Square btclicked = new Square(0, 0, 0);
+    private Square btclicked = new Square(0, 0, 0);
     public Board () {
         //setting frame ready
         frame = new JFrame();
@@ -34,14 +34,18 @@ public class Board implements ActionListener {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 //copy clicked button to Board
-                
+                if (e.getSource() == map[i][j].getButton()) {
+                    
+                    if( !btclicked.moveTo(map[i][j]) ) btclicked = map[i][j];
+                    
+
+                }
             }
         }
     }
 
     public static void main (String args[]) {
         Board game = new Board();
-        
         //Task 2 row 1
         game.map[0][0].setSquare(1);
         game.map[0][2].setSquare(1);
