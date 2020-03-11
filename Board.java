@@ -28,7 +28,25 @@ public class Board {
         frame.setVisible(true);
     }
 
-    public static void main (String args[]) {
+    public void main (String args[]) {
         Board game = new Board();
+        //Task 2 row 1
+        Board.map[0][0].setSquare(1);
+        Board.map[0][2].setSquare(1);
+        Board.map[0][4].setSquare(1);
+        //row 2
+        Board.map[1][1].setSquare(2);
+        Board.map[1][3].setSquare(2);
+        //row 3
+        Board.map[2][0].setSquare(1);
+        Board.map[2][2].setSquare(2);
+        Board.map[2][4].setSquare(1);
+        //row 4
+        Board.map[3][1].setSquare(1);
+        Board.map[3][3].setSquare(1);
+        //row 5
+        Board.map[4][0].setSquare(2);
+        Board.map[4][2].setSquare(3);
+        Board.map[4][4].setSquare(2);
     }
 }
