@@ -5,7 +5,8 @@ import java.awt.event.*;
 public class Board implements ActionListener {
     private JFrame frame;
     Square[][] map = new Square[5][5];
-    //private Square btclicked = new Square(0, 0, 0);
+    private Square btclicked = new Square(0, 0, 0);
+
     public Board () {
         //setting frame ready
         frame = new JFrame();
@@ -30,8 +31,21 @@ public class Board implements ActionListener {
 
 
     public void actionPerformed(ActionEvent e) {
+        System.out.println("sth");
         //2 loops to check which button was clicked
-        
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if ( e.getSource() == map[i][j].getButton() ) {
+                    //if person clicked water return false else return true
+                    if ( map[i][j].moveTo(btclicked) ) {
+                        map[btclicked.getX()][btclicked.getY()]
+                        .setSquare(Integer.parseInt(map[i][j].getDescription()));
+                    }
+                    else btclicked = map[i][j];
+                    System.out.println(map[i][j].getX() + " " + map[i][j].getY());
+                }
+            }
+        }
     }
 
     public static void main (String args[]) {

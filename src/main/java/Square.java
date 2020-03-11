@@ -39,6 +39,10 @@ public class Square implements ActionListener {
         return y;
     }
 
+    public String getDescription() {
+        return img.getDescription();
+    }
+
     public void setSquare (int in) {
         if (in == 0) img = new ImageIcon("Water.png", "0");
         if (in == 1) img = new ImageIcon("LilyPad.png", "1");
@@ -50,14 +54,14 @@ public class Square implements ActionListener {
         bt.setIcon(img);
     }
 
-    /*public boolean moveTo (Square where) {
+    public boolean moveTo (Square where) {
         if( !img.getDescription().equals("0") ) {
             where.setSquare(2);
             this.setSquare(1);
             return true;
         }
         return false;
-    }*/
+    }
 
 
     public void actionPerformed(ActionEvent e) {
