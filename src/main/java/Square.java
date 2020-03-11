@@ -27,7 +27,7 @@ public class Square implements ActionListener {
         y = y;
     }
 
-    public JButton getButton () {
+    public JButton getButton() {
         return bt;
     }
 
@@ -46,7 +46,7 @@ public class Square implements ActionListener {
         if (in == 3) img = new ImageIcon("RedFrog.png", "3");
         if (in == 4) img = new ImageIcon("GreenFrog2.png", "4");
         if (in == 5) img = new ImageIcon("RedFrog2.png", "5");
-        
+
         bt.setIcon(img);
     }
 

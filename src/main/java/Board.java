@@ -2,10 +2,10 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Board {
+public class Board implements ActionListener {
     private JFrame frame;
     Square[][] map = new Square[5][5];
-    
+    private JButton btclicked = new JButton();
     public Board () {
         //setting frame ready
         frame = new JFrame();
@@ -26,6 +26,19 @@ public class Board {
         }
         frame.setContentPane(panel);
         frame.setVisible(true);
+    }
+
+
+    public void actionPerformed(ActionEvent e) {
+        //2 loops to check which button was clicked
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                //copy clicked button to Board
+                if (e.getSource() == map[i][j].getButton()) {
+                    btclicked = map[i][j].getButton();
+                }
+            }
+        }
     }
 
     public static void main (String args[]) {
@@ -49,4 +62,6 @@ public class Board {
         game.map[4][2].setSquare(3);
         game.map[4][4].setSquare(2);
     }
+
+    
 }
