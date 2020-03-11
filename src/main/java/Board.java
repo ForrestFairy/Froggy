@@ -31,12 +31,7 @@ public class Board implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         //2 loops to check which button was clicked
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                //copy clicked button to Board
-                
-            }
-        }
+        
     }
 
     public static void main (String args[]) {

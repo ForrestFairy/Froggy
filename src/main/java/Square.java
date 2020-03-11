@@ -64,11 +64,13 @@ public class Square implements ActionListener {
         if (e.getSource() == bt) {
             //green to yellowGreen
             if (img.getDescription().equals("2") ) {
-                this.setSquare(4);
+                img = new ImageIcon("GreenFrog2.png", "4");
+                bt.setIcon(img);
             }
             //red to yellowRed
             if (img.getDescription().equals("3") ) {
-                this.setSquare(5);
+                img = new ImageIcon("RedFrog2.png", "5");
+                bt.setIcon(img);
             }
         }
     }
