@@ -5,7 +5,7 @@ import java.awt.event.*;
 public class Board implements ActionListener {
     private JFrame frame;
     Square[][] map = new Square[5][5];
-    private Square btclicked = new Square(0, 0, 0);
+    public Square btclicked;
 
     public Board () {
         //setting frame ready
@@ -17,11 +17,13 @@ public class Board implements ActionListener {
         GridLayout mainLayout = new GridLayout(5, 5);
         JPanel panel = new JPanel();
         panel.setLayout(mainLayout);
+        //initialize to water
+        btclicked = new Square(0, 1, 1);
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 map[i][j] = new Square(0, i, j);
-
+                map[i][j].getButton().addActionListener(this);
                 panel.add(map[i][j].getButton());
             }
         }
@@ -31,18 +33,18 @@ public class Board implements ActionListener {
 
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println("sth");
+        
         //2 loops to check which button was clicked
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if ( e.getSource() == map[i][j].getButton() ) {
-                    //if person clicked water return false else return true
-                    if ( map[i][j].moveTo(btclicked) ) {
-                        map[btclicked.getX()][btclicked.getY()]
-                        .setSquare(Integer.parseInt(map[i][j].getDescription()));
-                    }
-                    else btclicked = map[i][j];
-                    System.out.println(map[i][j].getX() + " " + map[i][j].getY());
+                    btclicked = map[i][j].moveTo(map[btclicked.getX()][btclicked.getY()]);
+                    
+
+                    //tests and printing of where we currently click
+                    System.out.println(map[i][j].getX() + " " + map[i][j].getY() + "  "+
+                        btclicked.getX() + " " + btclicked.getY());
+                    System.out.println(btclicked.getDescription());
                 }
             }
         }
@@ -69,6 +71,7 @@ public class Board implements ActionListener {
         game.map[4][0].setSquare(2);
         game.map[4][2].setSquare(3);
         game.map[4][4].setSquare(2);
+
     }
 
     

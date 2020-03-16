@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Square implements ActionListener {
+public class Square {
     
     private ImageIcon img;
     private JButton bt;
@@ -10,7 +10,7 @@ public class Square implements ActionListener {
     private int y;
 
 //if water 0, if pad,1, if green frog 2, if red frog 3 
-    public Square (int in, int x, int y) {
+    public Square (int in, int xv, int yv) {
 
         if (in == 0) img = new ImageIcon("src/main/resources/Water.png", "0");
         if (in == 1) img = new ImageIcon("src/main/resources/LilyPad.png", "1");
@@ -21,10 +21,10 @@ public class Square implements ActionListener {
         
         bt = new JButton(img);
         bt.setIcon(img);
-        bt.addActionListener(this);
+        //bt.addActionListener(this);
 
-        x = x;
-        y = y;
+        x = xv;
+        y = yv;
     }
 
     public JButton getButton() {
@@ -39,8 +39,20 @@ public class Square implements ActionListener {
         return y;
     }
 
-    public String getDescription() {
-        return img.getDescription();
+    public void setX (int xv) {
+        x = xv;
+    }
+
+    public void setY (int yv) {
+        y = yv;
+    }
+
+    public int getDescription() {
+        return Integer.parseInt(img.getDescription());
+    }
+
+    public void setDescription(String description) {
+        img.setDescription(description);
     }
 
     public void setSquare (int in) {
@@ -54,28 +66,33 @@ public class Square implements ActionListener {
         bt.setIcon(img);
     }
 
-    public boolean moveTo (Square where) {
-        if( !img.getDescription().equals("0") ) {
-            where.setSquare(2);
+    public Square moveTo (Square where) {
+        //tests if not-water was clicked
+        if( !where.img.getDescription().equals("0") && !img.getDescription().equals("0")) {
+            where.setSquare(this.getDescription());
             this.setSquare(1);
-            return true;
+            where.setDescription("0");
+            return where;   
         }
-        return false;
+        where.setX(this.getX());
+        where.setY(this.getY());
+        where.setSquare(this.getDescription());
+        return where;
     }
 
 
+    /*
+    //this should probably go to board
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bt) {
             //green to yellowGreen
             if (img.getDescription().equals("2") ) {
-                img = new ImageIcon("GreenFrog2.png", "4");
-                bt.setIcon(img);
+                this.setSquare(4);
             }
             //red to yellowRed
             if (img.getDescription().equals("3") ) {
-                img = new ImageIcon("RedFrog2.png", "5");
-                bt.setIcon(img);
+                this.setSquare(5);
             }
         }
-    }
+    }*/
 }
