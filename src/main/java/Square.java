@@ -68,15 +68,18 @@ public class Square {
 
     public Square moveTo (Square where) {
         //tests if not-water was clicked
-        if( !where.img.getDescription().equals("0") && !img.getDescription().equals("0")) {
-            where.setSquare(this.getDescription());
-            this.setSquare(1);
-            where.setDescription("0");
+        if( !(where.getDescription() < 2) && this.getDescription() == 1) {
+            this.setSquare(where.getDescription());
+            where.setSquare(1);
+            
             return where;   
         }
+        //if nothing was clicked before set btclicked to this bt
         where.setX(this.getX());
         where.setY(this.getY());
         where.setSquare(this.getDescription());
+        // if (where.getDescription() == 2) where.setDescription("4");
+        // if (where.getDescription() == 3) where.setDescription("5");
         return where;
     }
 
