@@ -67,12 +67,17 @@ public class Square {
     }
 
     public Square moveTo (Square where) {
-        //tests if not-water was clicked
-        if( where.getDescription() > 1 && this.getDescription() == 1) {
-            this.setSquare(where.getDescription() - 2);
-            where.setSquare(1);
-            
-            return where;   
+        //valid move
+        if ( (Math.abs(where.getX() - this.getX()) == 4 || Math.abs(where.getY() - this.getY()) == 4 ||
+                Math.abs(where.getX() - this.getX()) == 2 && Math.abs(where.getY() - this.getY()) == 2) &&
+                 !(Math.abs(where.getX() - this.getX()) == 4 && Math.abs(where.getY() - this.getY()) == 4 )) {
+            //tests if not-water was clicked
+            if( where.getDescription() > 1 && this.getDescription() == 1) {
+                this.setSquare(where.getDescription() - 2);
+                where.setSquare(1);
+                
+                return where;   
+            }
         }
         //if nothing was clicked before set btclicked to this bt
         where.setX(this.getX());
@@ -84,20 +89,5 @@ public class Square {
         
         return where;
     }
-
-
-    /*
-    //this should probably go to board
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == bt) {
-            //green to yellowGreen
-            if (img.getDescription().equals("2") ) {
-                this.setSquare(4);
-            }
-            //red to yellowRed
-            if (img.getDescription().equals("3") ) {
-                this.setSquare(5);
-            }
-        }
-    }*/
+    
 }
