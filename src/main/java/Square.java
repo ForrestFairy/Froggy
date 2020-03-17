@@ -51,8 +51,8 @@ public class Square {
         return Integer.parseInt(img.getDescription());
     }
 
-    public void setDescription(String description) {
-        img.setDescription(description);
+    public void setDescription(int description) {
+        img.setDescription(Integer.toString(description));
     }
 
     public void setSquare (int in) {
@@ -68,8 +68,8 @@ public class Square {
 
     public Square moveTo (Square where) {
         //tests if not-water was clicked
-        if( !(where.getDescription() < 2) && this.getDescription() == 1) {
-            this.setSquare(where.getDescription());
+        if( where.getDescription() > 1 && this.getDescription() == 1) {
+            this.setSquare(where.getDescription() - 2);
             where.setSquare(1);
             
             return where;   
@@ -78,8 +78,10 @@ public class Square {
         where.setX(this.getX());
         where.setY(this.getY());
         where.setSquare(this.getDescription());
-        // if (where.getDescription() == 2) where.setDescription("4");
-        // if (where.getDescription() == 3) where.setDescription("5");
+        if (where.getDescription() == 2 || where.getDescription() == 3) {
+            where.setSquare(where.getDescription() + 2);
+        }
+        
         return where;
     }
 

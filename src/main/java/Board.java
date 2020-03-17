@@ -38,12 +38,23 @@ public class Board implements ActionListener {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if ( e.getSource() == map[i][j].getButton() ) {
-                    btclicked = map[i][j].moveTo(btclicked);
-                    if (btclicked.getDescription() == 1) {
-                        map[btclicked.getX()][btclicked.getY()].setSquare(1);
+                    if (map[i][j].getDescription() == btclicked.getDescription() || 
+                        (map[i][j].getDescription() != 1 && btclicked.getDescription() > 1)) {
+                        map[btclicked.getX()][btclicked.getY()].
+                            setSquare(btclicked.getDescription() - 2);
+                        
+                        btclicked.setDescription(0);
+                    }
+                    else {
+                        btclicked = map[i][j].moveTo(btclicked);
+                        map[btclicked.getX()][btclicked.getY()].setSquare(btclicked.getDescription());
+                        //if clicked on a leaf
+                        if (btclicked.getDescription() == 1) {
+                            map[btclicked.getX()][btclicked.getY()].setSquare(1);
+                        }
                     }
 
-                    
+
                     /*
                     //tests and printing of where we currently click
                     System.out.println(map[i][j].getX() + " " + map[i][j].getY() + "  "+
