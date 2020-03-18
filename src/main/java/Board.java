@@ -38,8 +38,9 @@ public class Board implements ActionListener {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if ( e.getSource() == map[i][j].getButton() ) {
-                    if (map[i][j].getDescription() == btclicked.getDescription() || 
-                        (map[i][j].getDescription() != 1 && btclicked.getDescription() > 1)) {
+                    //check if we're making valid move -> valid length of jump and if we are jumping over a frog
+                    if (!map[i][j].validMove(btclicked) && btclicked.getDescription() > 3 /*&&
+                            (map[(i + btclicked.getX()) / 2][(j + btclicked.getY()) / 2].getDescription() > 1 || (btclicked.getX() == i && btclicked.getY() == j) )*/ ){
                         map[btclicked.getX()][btclicked.getY()].
                             setSquare(btclicked.getDescription() - 2);
                         
@@ -48,10 +49,12 @@ public class Board implements ActionListener {
                     else {
                         btclicked = map[i][j].moveTo(btclicked);
                         map[btclicked.getX()][btclicked.getY()].setSquare(btclicked.getDescription());
+                        
                         //if clicked on a leaf
-                        if (btclicked.getDescription() == 1) {
-                            map[btclicked.getX()][btclicked.getY()].setSquare(1);
-                        }
+                        /*if (btclicked.getDescription() == 1) {
+                            //map[btclicked.getX()][btclicked.getY()].setSquare(1);
+                        }*/
+
                     }
 
 

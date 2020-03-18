@@ -66,11 +66,33 @@ public class Square {
         bt.setIcon(img);
     }
 
+    public boolean validMove(Square where) {
+        //if destination leaf is occupied then its invalid move
+        if (this.getDescription() > 1) return false;
+        //break down to all valid moves
+        //going right
+        if (where.getX() - this.getX() == 4 && where.getY() == this.getY()) return true;
+        //going left
+        if (this.getX() - where.getX() == 4 && where.getY() == this.getY()) return true;
+        //going down
+        if (where.getY() - this.getY() == 4 && where.getX() == this.getX()) return true;
+        //going up
+        if (this.getY() - where.getY() == 4 && where.getX() == this.getX()) return true;
+        //up right
+        if (this.getY() - where.getY() == 2 && where.getX() - this.getX() == 2) return true;
+        //up left
+        if (this.getY() - where.getY() == 2 && this.getX() - where.getX() == 2) return true;
+        //down right
+        if (where.getY() - this.getY() == 2 && where.getX() - this.getX() == 2) return true;
+        //down left
+        if (where.getY() - this.getY() == 2 && this.getX() - where.getX() == 2) return true;
+        //else return false
+        return false;
+    }
+
     public Square moveTo (Square where) {
         //valid move
-        if ( (Math.abs(where.getX() - this.getX()) == 4 || Math.abs(where.getY() - this.getY()) == 4 ||
-                Math.abs(where.getX() - this.getX()) == 2 && Math.abs(where.getY() - this.getY()) == 2) &&
-                 !(Math.abs(where.getX() - this.getX()) == 4 && Math.abs(where.getY() - this.getY()) == 4 )) {
+        if (validMove(where)) {
             //tests if not-water was clicked
             if( where.getDescription() > 1 && this.getDescription() == 1) {
                 this.setSquare(where.getDescription() - 2);
