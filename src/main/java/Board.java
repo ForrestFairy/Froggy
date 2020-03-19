@@ -39,8 +39,9 @@ public class Board implements ActionListener {
             for (int j = 0; j < 5; j++) {
                 if ( e.getSource() == map[i][j].getButton() ) {
                     //check if we're making valid move -> valid length of jump and if we are jumping over a frog
-                    if (!map[i][j].validMove(btclicked) && btclicked.getDescription() > 3 /*&&
-                            (map[(i + btclicked.getX()) / 2][(j + btclicked.getY()) / 2].getDescription() > 1 || (btclicked.getX() == i && btclicked.getY() == j) )*/ ){
+                    if (btclicked.getDescription() > 3 && (!map[i][j].validMove(btclicked) ||
+                            (map[(i + btclicked.getX()) / 2][(j + btclicked.getY()) / 2].getDescription() < 2 ||
+                             (btclicked.getX() == i && btclicked.getY() == j) ) )){
                         map[btclicked.getX()][btclicked.getY()].
                             setSquare(btclicked.getDescription() - 2);
                         
@@ -48,21 +49,16 @@ public class Board implements ActionListener {
                     }
                     else {
                         btclicked = map[i][j].moveTo(btclicked);
+                        //deletes frog over which we have jumped
+                        map[(i + btclicked.getX()) / 2][(j + btclicked.getY()) / 2].setSquare(1);
                         map[btclicked.getX()][btclicked.getY()].setSquare(btclicked.getDescription());
                         
-                        //if clicked on a leaf
-                        /*if (btclicked.getDescription() == 1) {
-                            //map[btclicked.getX()][btclicked.getY()].setSquare(1);
-                        }*/
+                        
 
                     }
 
 
-                    /*
-                    //tests and printing of where we currently click
-                    System.out.println(map[i][j].getX() + " " + map[i][j].getY() + "  "+
-                        btclicked.getX() + " " + btclicked.getY());
-                    System.out.println(btclicked.getDescription());*/
+                    
                 }
             }
         }
