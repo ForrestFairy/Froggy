@@ -4,9 +4,8 @@ import java.awt.event.*;
 
 public class Board implements ActionListener {
     private JFrame frame;
-    //private int [][] level = new int[5][5];
     Square[][] map = new Square[5][5];
-    public Square btclicked;
+    private Square btclicked;
 
     public Board (int[] input) {
         //setting frame ready
@@ -76,8 +75,9 @@ public class Board implements ActionListener {
         if (redFrog) {
             if (greenFrogs == 0) System.out.println("Congratulations!");
         }
-        else System.out.println("Try again");
+        else System.out.println("You lost your frog, try again");
     }
+
 
     /*public static void main (String args[]) {
         Board game = new Board();

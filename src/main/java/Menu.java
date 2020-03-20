@@ -20,6 +20,7 @@ public class Menu implements KeyListener {
         GridLayout menu = new GridLayout(2, 1);
         JPanel panel = new JPanel();
         panel.setLayout(menu);
+        frame.addKeyListener(this);
 
         //Initialize menu
         JTextArea welcomeMessage = new JTextArea("Welcome to Hoppers! Please select level below");
@@ -40,7 +41,7 @@ public class Menu implements KeyListener {
         try {
             File file = new File("src/main/resources/levels.txt");
             Scanner scan = new Scanner(file);
-            // scan.useDelimiter("\\s \\n");
+            
             for (int i = 0; i < 40; i++) {
                 for (int j = 0; j < 13; j++) {
                     level[i][j] = scan.nextInt();
@@ -55,7 +56,7 @@ public class Menu implements KeyListener {
     }
 
     public void keyPressed (KeyEvent e) {
-        //enter code 10
+        //enter code is 10
         if (e.getKeyCode() == 10) {
             int whichLevel = Integer.parseInt(chooseLevel.getText());
             if (whichLevel < 1 || whichLevel > 40) chooseLevel.setText("Put number between 1 and 40");
@@ -73,6 +74,5 @@ public class Menu implements KeyListener {
 
     public static void main (String args[]) throws FileNotFoundException {
         Menu start = new Menu();
-        // Board game = new Board(level);
     }
 }
