@@ -5,6 +5,7 @@ import java.io.*;
 import java.nio.file.FileSystemNotFoundException;
 import java.util.*;
 
+
 public class Menu implements KeyListener {
 
     private JFrame frame;
@@ -13,6 +14,7 @@ public class Menu implements KeyListener {
     private Board game;
 
     public Menu() throws FileNotFoundException {
+        //Initialize menu window
         frame = new JFrame();
         frame.setTitle("Froggy");
         frame.setSize(200, 300);
@@ -55,13 +57,19 @@ public class Menu implements KeyListener {
         
     }
 
-    public void keyPressed (KeyEvent e) {
+
+    public void keyPressed(KeyEvent e) {
+        //when enter is clicked in textArea check if valid level was entered
         //enter code is 10
         if (e.getKeyCode() == 10) {
             int whichLevel = Integer.parseInt(chooseLevel.getText());
             if (whichLevel < 1 || whichLevel > 40) chooseLevel.setText("Put number between 1 and 40");
-            else game = new Board(level[whichLevel]);
+            else {
+                game = new Board(level[whichLevel - 1]);
+                frame.setVisible(false);
+            }
         }
+
     }
 
     public void keyReleased (KeyEvent e) {
