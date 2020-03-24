@@ -3,6 +3,17 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
 
+/**
+ * Board class
+ * Contains 1050x750? frame
+ * from which 750x750 should go for 2d Square array called map
+ * Board also has JButton btclicked to store currently clicked button
+ * Current level is stored in integer array called level
+ * At the top of frame there are giveUp clickable button if player don't know how to beat level
+ * so want to come back to menu
+ * and tryAgain clickable button if player want to try completing same level again
+ * @author Szymon Bogusz
+ */
 public class Board implements ActionListener {
     private JFrame frame;
     Square[][] map = new Square[5][5];
@@ -10,13 +21,21 @@ public class Board implements ActionListener {
     private int[] level;
     private JButton giveUp;
     private JButton tryAgain;
-
+/**
+ * Board constructor
+ * This method returns frame containing
+ * giveUp and tryAgain buttons at the top
+ * and 5x5 Square map in the center
+ *  
+ * Current level is loaded from input
+ * @param input containing level to load
+ */
     public Board(int[] input) {
         level = input;
         // setting frame ready
         frame = new JFrame();
         frame.setTitle("Froggy");
-        frame.setSize(750, 750);
+        frame.setSize(1050, 750);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel mainPanel = new JPanel();
@@ -56,34 +75,18 @@ public class Board implements ActionListener {
         frame.setContentPane(mainPanel);
         frame.setVisible(true);
     }
-
-    public void actionPerformed(ActionEvent e) {
-        // after each click check if only red frog exists
+/**
+ * endGame method
+ * after each click it check if there is redFrog
+ * if not print message to terminal and start level again
+ * if there is red frog checks if there is no greenFrog
+ * if yes then print message to terminal and open new Menu class
+ * if there is at least 1 greenFrog - do nothing
+ */
+    public void endGame () {
         int greenFrogs = 0;
         boolean redFrog = false;
         // 2 loops to check which button was clicked
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (e.getSource() == map[i][j].getButton()) {
-                    // check if we're making valid move -> valid length of jump and if we are
-                    // jumping over a frog
-                    if (btclicked.getDescription() > 3 && (!map[i][j].validMove(btclicked)
-                            || (map[(i + btclicked.getX()) / 2][(j + btclicked.getY()) / 2].getDescription() < 2
-                                    || (btclicked.getX() == i && btclicked.getY() == j)))) {
-                        map[btclicked.getX()][btclicked.getY()].setSquare(btclicked.getDescription() - 2);
-
-                        btclicked.setDescription(0);
-                    } else {
-                        btclicked = map[i][j].moveTo(btclicked);
-                        // deletes frog over which we have jumped
-                        map[(i + btclicked.getX()) / 2][(j + btclicked.getY()) / 2].setSquare(1);
-                        map[btclicked.getX()][btclicked.getY()].setSquare(btclicked.getDescription());
-
-                    }
-                }
-
-            }
-        }
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if (map[i][j].getDescription() == 2 || map[i][j].getDescription() == 4)
@@ -117,6 +120,46 @@ public class Board implements ActionListener {
             //close this window
             frame.setVisible(false);
         }
+    }
+
+/**
+ * if anything is clicked check which button was clicked
+ * if btclicked holds Square with frog check if it can go to currently clicked Square
+ * i.e. checks if jump will be performed over another frog
+ * if move is valid perform it and delete frog over which jump was performed
+ * else if no Square was selected  select the one clicked
+ * if some Square was selected and move is not valid unselect it
+ * 
+ * after move chceck if the level is done
+ * 
+ * if tryAgain button was clicked - load same level again
+ * if giveUp button was clicked - load new menu 
+ */
+    public void actionPerformed(ActionEvent e) {
+        // 2 loops to check which button was clicked
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (e.getSource() == map[i][j].getButton()) {
+                    // check if we're making valid move -> valid length of jump and if we are
+                    // jumping over a frog
+                    if (btclicked.getDescription() > 3 && (!map[i][j].validMove(btclicked)
+                            || (map[(i + btclicked.getX()) / 2][(j + btclicked.getY()) / 2].getDescription() < 2
+                                    || (btclicked.getX() == i && btclicked.getY() == j)))) {
+                        map[btclicked.getX()][btclicked.getY()].setSquare(btclicked.getDescription() - 2);
+
+                        btclicked.setDescription(0);
+                    } else {
+                        btclicked = map[i][j].moveTo(btclicked);
+                        // deletes frog over which we have jumped
+                        map[(i + btclicked.getX()) / 2][(j + btclicked.getY()) / 2].setSquare(1);
+                        map[btclicked.getX()][btclicked.getY()].setSquare(btclicked.getDescription());
+                    }
+                }
+            }
+        }
+
+        //check if game is done
+        endGame();
 
         //if giveUp button was clicked go to menu
         if(e.getSource() == giveUp) {
@@ -136,7 +179,6 @@ public class Board implements ActionListener {
             frame.setVisible(false);
         }
     }
-
 
     /*public static void main (String args[]) {
         Board game = new Board();

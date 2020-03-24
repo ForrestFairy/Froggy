@@ -5,14 +5,24 @@ import java.io.*;
 import java.nio.file.FileSystemNotFoundException;
 import java.util.*;
 
-
+/**
+ * Menu class
+ * menu for game called Froggy
+ * in JTextField player can choose which level to play form level 1 to 40
+ * @author Szymon Bogusz
+ */
 public class Menu implements KeyListener {
 
     private JFrame frame;
     private JTextField chooseLevel;
     private int[][] level = new int[40][13];
     private Board game;
-
+/**
+ * Menu creator
+ * opens small frame
+ * all levels are loaded to level 2d array form "levels.txt"
+ * @throws FileNotFoundException
+ */
     public Menu() throws FileNotFoundException {
         //Initialize menu window
         frame = new JFrame();
@@ -57,7 +67,12 @@ public class Menu implements KeyListener {
         
     }
 
-
+/**
+ * waits until enter is clicked
+ * if enter is clicked this method checks what is written in JTextField
+ * if not number from 1 to 40 then asks in JTextField to put number
+ * if number from 1 to 40 is put then opens Board class with suitable level and closes this frame
+ */
     public void keyPressed(KeyEvent e) {
         //when enter is clicked in textArea check if valid level was entered
         //enter code is 10
