@@ -7,6 +7,8 @@ import java.util.*;
 
 /**
  * Menu class
+ * /n This class should be run from Froggy file not from Froggy/src/main/java
+ * or it won't load images to Squares
  * menu for game called Froggy
  * in JTextField player can choose which level to play form level 1 to 40
  * @author Szymon Bogusz
