@@ -19,6 +19,8 @@ public class Board implements ActionListener {
     Square[][] map = new Square[5][5];
     private Square btclicked;
     private int[] level;
+    private int whichLevel;
+    private JButton whichLevelField;
     private JButton giveUp;
     private JButton tryAgain;
 /**
@@ -30,8 +32,9 @@ public class Board implements ActionListener {
  * Current level is loaded from input
  * @param input containing level to load
  */
-    public Board(int[] input) {
+    public Board(int[] input, int which) {
         level = input;
+        whichLevel = which;
         // setting frame ready
         frame = new JFrame();
         frame.setTitle("Froggy");
@@ -61,13 +64,17 @@ public class Board implements ActionListener {
                 panel.add(map[i][j].getButton());
             }
         }
-        //setup panel for giveUp and tryAgain buttons
-        JPanel btPanel = new JPanel(new GridLayout(1, 2));
+        //setup panel for giveUp and tryAgain buttons and for textfield displaying which level
+        // are we playing right now
+        JPanel btPanel = new JPanel(new GridLayout(1, 3));
         giveUp = new JButton("Give up?");
         giveUp.addActionListener(this);
         tryAgain = new JButton("Try again?");
         tryAgain.addActionListener(this);
+        whichLevelField = new JButton("Level " + whichLevel);
+        whichLevelField.addActionListener(this);
         btPanel.add(giveUp);
+        btPanel.add(whichLevelField);
         btPanel.add(tryAgain);
 
         mainPanel.add("Center", panel);
@@ -97,28 +104,12 @@ public class Board implements ActionListener {
         }
         if (redFrog) {
             if (greenFrogs == 0) {
-                System.out.println("Congratulations!");
-                //if won, pause for 3 sec and open menu
-                {try { Thread.sleep(300); }
-                catch (Exception f) {}; }
-
-                try {
-                    Menu menu = new Menu();
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                }
-                //close this window
-                frame.setVisible(false);
+                //change middle button to win message 
+                whichLevelField.setText("Congratulations!");
             }
         } else {
-            System.out.println("You lost your frog, try again");
-            //if lost, pause for 3 sec and open same level
-            {try { Thread.sleep(300); }
-            catch (Exception f) {}; }
-            //open new window
-            new Board(level);
-            //close this window
-            frame.setVisible(false);
+            //change middle button to lost message 
+            whichLevelField.setText("You lost your frog, try again");
         }
     }
 
@@ -162,7 +153,7 @@ public class Board implements ActionListener {
         endGame();
 
         //if giveUp button was clicked go to menu
-        if(e.getSource() == giveUp) {
+        if (e.getSource() == giveUp) {
             try {
                 Menu menu = new Menu();
             } catch (FileNotFoundException e1) {
@@ -172,11 +163,22 @@ public class Board implements ActionListener {
             frame.setVisible(false);
         }
 
-        if(e.getSource() == tryAgain) {
+        if (e.getSource() == tryAgain) {
             //open new window
-            new Board(level);
+            new Board(level, whichLevel);
             //close this window
             frame.setVisible(false);
+        }
+        if (e.getSource() == whichLevelField) {
+            if ( !whichLevelField.getText().equals("Level " + whichLevel)) {
+                try {
+                    Menu menu = new Menu();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                //close this window
+                frame.setVisible(false);
+            }
         }
     }
 

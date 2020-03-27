@@ -80,7 +80,7 @@ public class Menu implements KeyListener {
             int whichLevel = Integer.parseInt(chooseLevel.getText());
             if (whichLevel < 1 || whichLevel > 40) chooseLevel.setText("Put number between 1 and 40");
             else {
-                game = new Board(level[whichLevel - 1]);
+                game = new Board(level[whichLevel - 1], whichLevel);
                 frame.setVisible(false);
             }
         }
