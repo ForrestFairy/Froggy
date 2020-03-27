@@ -85,9 +85,9 @@ public class Board implements ActionListener {
 /**
  * endGame method
  * after each click it check if there is redFrog
- * if not print message to terminal and start level again
+ * if not print message to middle button and start level again
  * if there is red frog checks if there is no greenFrog
- * if yes then print message to terminal and open new Menu class
+ * if yes then print message to middle button and open new Menu class
  * if there is at least 1 greenFrog - do nothing
  */
     public void endGame () {
